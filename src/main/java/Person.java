@@ -7,15 +7,20 @@ public class Person {
     private int age;
     private String city;
 
-    public Person(String name, String surname, int age, String city) {
+    public Person(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
+    public Person(String name, String surname, int age) {
         this.name = name;
         this.surname = surname;
         this.age = age;
-        this.city = city;
     }
 
     public PersonBuilder newChildBuilder() {
-        return new PersonBuilder().setAge(1)
+        return new PersonBuilder()
+                .setAge(1)
                 .setCity(city)
                 .setSurname(surname);
     }
@@ -27,11 +32,11 @@ public class Person {
     }
 
     public boolean hasAge() {
-        return age >= 0;
+        return age != 0;
     }
 
     public OptionalInt getAge() {
-        return OptionalInt.of(age);
+        return hasAge() ? OptionalInt.of(age) : OptionalInt.empty();
     }
 
     public boolean hasCity() {

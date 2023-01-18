@@ -14,8 +14,10 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder setAge(int age) {
-        if (this.age == 0) {
+    public PersonBuilder setAge(int age) throws IllegalArgumentException {
+        if (age < 0) {
+            throw new IllegalArgumentException("Возраст не может быть отрицательным");
+        } else {
             this.age = age;
         }
         return this;
@@ -26,21 +28,20 @@ public class PersonBuilder {
         return this;
     }
 
-    public Person build() {
-        if (age < 0) {
-            throw new IllegalArgumentException("Возраст не может быть отрицательным!");
-        } else if (age == 0) {
-            throw new IllegalStateException("Невозможно создать объект, отсутствует возраст");
-        }
+    public Person build() throws IllegalStateException {
         if (name == null) {
             throw new IllegalStateException("Невозможно создать объект, отсутствует имя");
         }
         if (surname == null) {
             throw new IllegalStateException("Невозможно создать объект, отсутствует фамилия");
         }
-        if (city == null) {
-            throw new IllegalStateException("Невозможно создать объект, отсутствует место жительства");
+        Person person;
+        if (age == 0) {
+            person = new Person(name, surname);
+        } else {
+            person = new Person(name, surname, age);
         }
-        return new Person(name, surname, age, city);
+        person.setCity(city);
+        return person;
     }
 }

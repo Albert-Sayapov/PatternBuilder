@@ -2,8 +2,8 @@ public class Main {
     public static void main(String[] args) {
         Person mom = new PersonBuilder()
                 .setName("Анна")
+                .setAge(30)
                 .setSurname("Вольф")
-                .setAge(31)
                 .setCity("Сидней")
                 .build();
         Person son = mom.newChildBuilder()
@@ -15,6 +15,9 @@ public class Main {
         System.out.println();
         mom.happyBirthday();
         System.out.println(mom);
+        mom.setCity("Новосибирск");
+        System.out.println("---------------");
+        System.out.println(mom.getAge());
 
         try {
             // Не хватает обязательных полей
